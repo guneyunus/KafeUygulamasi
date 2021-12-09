@@ -55,10 +55,7 @@ Data Source=LAPTOP-3N546DI4;User Id=sa;Password=daghan.3723;Initial Catalog=Kafe
         public DbSet<Urun> Urunler { get; set; }
         public DbSet<SiparisDetay> SiparisDetaylar { get; set; }
 
-        public void Save()
-        {
-            this.SaveChanges();
-        }
+       
         
     }
 
