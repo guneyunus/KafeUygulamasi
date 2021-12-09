@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using KafeAdisyon.Data.Models;
 
 namespace KafeAdisyon.Forms
 {
@@ -15,6 +16,12 @@ namespace KafeAdisyon.Forms
         public AnaEkran()
         {
             InitializeComponent();
+        }
+
+        private KafeBilgi kafeBilgi;
+        private void AnaEkran_Load(object sender, EventArgs e)
+        {
+            
         }
     }
 }
