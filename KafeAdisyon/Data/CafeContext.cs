@@ -55,10 +55,7 @@ Data Source=DESKTOP-30MHEAF\SQLEXPRESS;Initial Catalog=Kafe4DB;Integrated Securi
         public DbSet<Urun> Urunler { get; set; }
         public DbSet<SiparisDetay> SiparisDetaylar { get; set; }
 
-        public void Save()
-        {
-            this.SaveChanges();
-        }
+       
         
     }
 

@@ -8,7 +8,7 @@ using KafeAdisyon.Data.Models;
 
 namespace KafeAdisyon.Business
 {
-    public class KafeBilgiRepository:RepositoryBase<KafeBilgi,int>
+    public class KafeBilgiRepository: RepositoryBase<KafeBilgi,int>
     {
         
     }
