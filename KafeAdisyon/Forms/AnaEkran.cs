@@ -21,7 +21,45 @@ namespace KafeAdisyon.Forms
         private KafeBilgi kafeBilgi;
         private void AnaEkran_Load(object sender, EventArgs e)
         {
-            
+
+        }
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+
+        }
+        private MenuForm frmMenu;
+        private void menüToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (frmMenu == null || frmMenu.IsDisposed)
+            {
+                frmMenu = new MenuForm();
+            }
+            frmMenu.MdiParent = this;
+            frmMenu.WindowState = FormWindowState.Maximized;
+            frmMenu.Show();
+        }
+        private KatAyarForm frmKatAyar;
+        private void katMasaAyarlarıToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (frmKatAyar == null || frmKatAyar.IsDisposed)
+            {
+                frmKatAyar = new KatAyarForm();
+            }
+            frmKatAyar.MdiParent = this;
+            frmKatAyar.WindowState = FormWindowState.Maximized;
+            frmKatAyar.Show();
+        }
+        private KafeGorunumForm frmKafeGorunum;
+        private void siparişEkranıToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (frmKafeGorunum == null || frmKafeGorunum.IsDisposed)
+            {
+                frmKafeGorunum = new KafeGorunumForm();
+            }
+            frmKafeGorunum.MdiParent = this;
+            frmKafeGorunum.WindowState = FormWindowState.Maximized;
+            frmKafeGorunum.Show();
         }
     }
 }
