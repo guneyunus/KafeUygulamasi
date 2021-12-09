@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using KafeAdisyon.Data;
+using System.Text;
+using System.Threading.Tasks;
+using KafeAdisyon.Data.Abstract;
 using KafeAdisyon.Data.Models;
-
 
 namespace KafeAdisyon.Business
 {
-    public class KatRepository : RepositoryBase<Kat,int>
+    public class KafeBilgiRepository:RepositoryBase<KafeBilgi,int>
     {
         
-        public KatRepository() : base()
-        {
-            
-        }
     }
 }

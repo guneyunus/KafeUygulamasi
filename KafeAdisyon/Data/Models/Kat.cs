@@ -27,6 +27,10 @@ namespace KafeAdisyon.Data.Models
         public KafeBilgi KafeBilgi { get; set; }
        
         public int KafeBilgiId { get; set; }
-        
+
+        public override string ToString()
+        {
+            return $"{Sira}--{Ad}" ;
+        }
     }
 }

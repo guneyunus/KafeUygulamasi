@@ -46,7 +46,7 @@ namespace KafeAdisyon.Business
         {
             Table.Add(entity);
             if (!isSaveLater) this.Save();
-
+            
         }
 
         public virtual void Remove(T entity, bool isSaveLater = false)

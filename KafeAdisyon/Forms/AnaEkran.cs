@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using KafeAdisyon.Business;
 using KafeAdisyon.Data.Models;
 
 namespace KafeAdisyon.Forms
@@ -19,8 +20,29 @@ namespace KafeAdisyon.Forms
         }
 
         private KafeBilgi kafeBilgi;
+        private KafeBilgiRepository _kafeBilgiRepository;
         private void AnaEkran_Load(object sender, EventArgs e)
         {
+            _kafeBilgiRepository = new KafeBilgiRepository()
+            {
+
+            };
+            if (_kafeBilgiRepository.Get(x=>x.Id == 1).Any() == false)//any
+            {
+                kafeBilgi= new KafeBilgi()
+                {
+                    Ad = "deneme",
+
+
+                };
+                _kafeBilgiRepository.Add(kafeBilgi);
+                _kafeBilgiRepository._dbContext.SaveChanges();
+            }
+            else
+            {
+                kafeBilgi = _kafeBilgiRepository.Get(x => x.Id == 1) as KafeBilgi;
+                
+            }
 
         }
 

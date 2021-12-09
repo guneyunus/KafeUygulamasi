@@ -86,14 +86,14 @@ namespace KafeAdisyon.Forms
             // siparişEkranıToolStripMenuItem
             // 
             this.siparişEkranıToolStripMenuItem.Name = "siparişEkranıToolStripMenuItem";
-            this.siparişEkranıToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.siparişEkranıToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.siparişEkranıToolStripMenuItem.Text = "Sipariş Ekranı";
             this.siparişEkranıToolStripMenuItem.Click += new System.EventHandler(this.siparişEkranıToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(224, 26);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(180, 26);
             this.toolStripMenuItem3.Text = ",";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
@@ -103,6 +103,7 @@ namespace KafeAdisyon.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.menuStrip1);
+            this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "AnaEkran";
             this.Text = "AnaEkran";
