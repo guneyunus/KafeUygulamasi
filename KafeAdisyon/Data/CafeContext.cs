@@ -5,12 +5,7 @@ using System.IO;
 using KafeAdisyon.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using KafeBilgi = KafeAdisyon.Model.KafeBilgi;
-using Kat = KafeAdisyon.Model.Kat;
-using Kategori = KafeAdisyon.Model.Kategori;
-using Masa = KafeAdisyon.Model.Masa;
-using Siparis = KafeAdisyon.Model.Siparis;
-using Urun = KafeAdisyon.Model.Urun;
+
 
 namespace KafeAdisyon.Data
 {
@@ -24,7 +19,7 @@ namespace KafeAdisyon.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Kuzey4Db;Integrated Security=True;");
+                optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Kafe4Db;Integrated Security=True;");
             }
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -59,6 +54,10 @@ namespace KafeAdisyon.Data
         public DbSet<Urun> Urunler { get; set; }
         public DbSet<SiparisDetay> SiparisDetaylar { get; set; }
 
+        public void Save()
+        {
+            this.SaveChanges();
+        }
         
     }
 

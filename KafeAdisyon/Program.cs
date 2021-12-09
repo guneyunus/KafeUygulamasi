@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using KafeAdisyon.Forms;
 
 namespace KafeAdisyon
 {
@@ -17,7 +18,7 @@ namespace KafeAdisyon
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new AnaEkran());
         }
     }
 }

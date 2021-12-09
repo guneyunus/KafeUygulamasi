@@ -1,17 +1,23 @@
 ﻿using KafeAdisyon.Data;
-using KafeAdisyon.Model;
+
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using KafeAdisyon.Data.Abstract;
 
 namespace KafeAdisyon.Business
 {
-    public interface IRepository<T> where T : CafeBase
+    public interface IRepository<T, in TId> where T : BaseEntity// t => entity tid => entity primary key type
     {
-        CafeContext Context { get; set; }
-        T Get(Guid id);
-        List<T> GetAll(Func<T, bool> predicate = null);
-        void Add(T item);
-        void Remove(T item);
-        void Update();
+        T GetById(TId id);
+        IQueryable<T> Get(Func<T, bool> predicate = null);
+        void Add(T entity, bool isSaveLater = false);
+        void Remove(T entity, bool isSaveLater = false);
+        void Update(T entity, bool isSaveLater = false);
+
+        int Save();
+
+
     }
+
 }
