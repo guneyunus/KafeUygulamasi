@@ -93,12 +93,13 @@ namespace KafeAdisyon.Forms
             this.lstKategori.ItemHeight = 20;
             this.lstKategori.Location = new System.Drawing.Point(237, 57);
             this.lstKategori.Name = "lstKategori";
-            this.lstKategori.Size = new System.Drawing.Size(150, 284);
+            this.lstKategori.Size = new System.Drawing.Size(227, 324);
             this.lstKategori.TabIndex = 5;
             this.lstKategori.SelectedIndexChanged += new System.EventHandler(this.lstKategori_SelectedIndexChanged);
             // 
             // nFiyat
             // 
+            this.nFiyat.DecimalPlaces = 2;
             this.nFiyat.Location = new System.Drawing.Point(526, 91);
             this.nFiyat.Name = "nFiyat";
             this.nFiyat.Size = new System.Drawing.Size(163, 27);
@@ -129,7 +130,7 @@ namespace KafeAdisyon.Forms
             this.lstUrunler.ItemHeight = 20;
             this.lstUrunler.Location = new System.Drawing.Point(695, 42);
             this.lstUrunler.Name = "lstUrunler";
-            this.lstUrunler.Size = new System.Drawing.Size(84, 324);
+            this.lstUrunler.Size = new System.Drawing.Size(205, 344);
             this.lstUrunler.TabIndex = 9;
             // 
             // label2
@@ -145,7 +146,7 @@ namespace KafeAdisyon.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1024, 450);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lstUrunler);
             this.Controls.Add(this.btnUrunKaydet);
