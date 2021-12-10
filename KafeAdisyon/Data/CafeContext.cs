@@ -20,7 +20,7 @@ namespace KafeAdisyon.Data
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseSqlServer(@"
-Data Source=DESKTOP-30MHEAF\SQLEXPRESS;Initial Catalog=Kafe4DB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;");
+Data Source=DESKTOP-30MHEAF\SQLEXPRESS;Initial Catalog=Kafe5DB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;");
             }
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -32,7 +32,9 @@ Data Source=DESKTOP-30MHEAF\SQLEXPRESS;Initial Catalog=Kafe4DB;Integrated Securi
             modelBuilder.Entity<Urun>()
                 .Property(x => x.Fiyat)
                 .HasPrecision(10, 2);
-
+            modelBuilder.Entity<Kategori>()
+                .HasMany(x => x.Urunler)
+                .WithOne(x => x.Kategori);
 
 
             modelBuilder.Entity<SiparisDetay>()

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace KafeAdisyon.Migrations
 {
-    public partial class CreateInitialDb : Migration
+    public partial class InitialCreateDbForOgi : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

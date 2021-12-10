@@ -25,5 +25,10 @@ namespace KafeAdisyon.Data.Models
         public int KategoriId { get; set; }
 
         public ICollection<SiparisDetay> SiparisDetaylar { get; set; } = new HashSet<SiparisDetay>();
+
+        public override string ToString()
+        {
+            return $"{Ad}";
+        }
     }
 }

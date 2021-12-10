@@ -49,6 +49,7 @@ namespace KafeAdisyon.Forms
                     Ad = $"{yeniKat.Kod}/Masa {i + 1}"
                 };
                 yeniKat.Masalar.Add(yeniMasa);
+
             }
 
             yeniKat.KafeBilgiId = _kafeBilgiRepository.GetById(1).Id;
