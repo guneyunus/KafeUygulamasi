@@ -31,8 +31,8 @@ namespace KafeAdisyon.Forms
         private MasaRepository _masaRepository;
         private SiparisDetayRepository _siparisDetayRepository;
         private UrunRepository _urunRepository;
-        
-        
+
+
         private void SiparisForm_Load(object sender, EventArgs e)
         {
             _kategoriRepository = new KategoriRepository() { };
@@ -40,8 +40,8 @@ namespace KafeAdisyon.Forms
             _siparisDetayRepository = new SiparisDetayRepository();
             _masaRepository = new MasaRepository();
             _urunRepository = new UrunRepository();
-
-            List<Kategori> kategoriler = _kategoriRepository.Get(x => x.Urunler.Count > 0).ToList();
+            var kategoriler = _kategoriRepository.Get(new[]{"Urunler"}).ToList();
+            
             flpKategoriler.Controls.Clear();
             foreach (Kategori kategori in kategoriler)
             {
@@ -77,23 +77,23 @@ namespace KafeAdisyon.Forms
                 var boolQuery = _siparisDetayRepository.Get(x => x.SiparisId == item.Id).Any();
                 if (boolQuery)
                 {
-                    
+
                     var siparis = _siparisRepository.Get(x => x.Id == item.Id);
                     var siparisDetayi = _siparisDetayRepository.Get(x => x.SiparisId == item.Id).ToList();
                     var urun = siparisDetayi.Select(x => x.Urun).ToString();
-                    ListViewItem viewItem = new ListViewItem(siparisDetayi.Select(x=>x.Adet).ToString());
-                    viewItem.SubItems.Add(siparisDetayi.Select(x=>x.Urun.Ad).ToString());
-                    viewItem.SubItems.Add($"{siparisDetayi.Select(x=>x.AraToplam):c2}");
+                    ListViewItem viewItem = new ListViewItem(siparisDetayi.Select(x => x.Adet).ToString());
+                    viewItem.SubItems.Add(siparisDetayi.Select(x => x.Urun.Ad).ToString());
+                    viewItem.SubItems.Add($"{siparisDetayi.Select(x => x.AraToplam):c2}");
                     lstSiparisler.Items.Add(viewItem);
-                    var aratoplamsal =  siparisDetayi.Select(x => x.AraToplam).Sum();
-                       toplam +=aratoplamsal ;
+                    var aratoplamsal = siparisDetayi.Select(x => x.AraToplam).Sum();
+                    toplam += aratoplamsal;
                 }
-                
+
             }
 
             lstSiparisler.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-            
-            
+
+
             lblToplam.Text = $"{toplam:c2}";
         }
 
@@ -102,7 +102,7 @@ namespace KafeAdisyon.Forms
             Button seciliButton = sender as Button;
 
             _seciliKategori = seciliButton.Tag as Kategori;
-            List<Urun> urunler = _seciliKategori.Urunler.ToList();
+            List<Urun> urunler = _urunRepository.Get(x => x.KategoriId == _seciliKategori.Id).ToList();
             flpUrunler.Controls.Clear();
             foreach (Urun urun in urunler)
             {
@@ -110,7 +110,7 @@ namespace KafeAdisyon.Forms
                 {
                     Text = urun.Ad,
                     Size = new Size(220, 150),
-                    BackgroundImage = Image.FromStream(new MemoryStream(urun.Fotograf)),
+                    //BackgroundImage = Image.FromStream(new MemoryStream(urun.Fotograf)),
                     BackgroundImageLayout = ImageLayout.Stretch,
                     ForeColor = Color.White,
                     Font = new Font(FontFamily.GenericMonospace, 20, FontStyle.Regular),
@@ -145,7 +145,7 @@ namespace KafeAdisyon.Forms
                 var SiparisDetay = _siparisDetayRepository.GetAll().Where(x => x.SiparisId == seciliSiparis.Id).ToList();
                 siparisDetay.Adet++;
                 _siparisDetayRepository.Update(siparisDetay);
-                
+
             }
             else
             {
@@ -161,7 +161,7 @@ namespace KafeAdisyon.Forms
                     SiparisId = yeniSiparis.Id,
                     Adet = 1,
                     Fiyat = _seciliUrun.Fiyat,
-                 };
+                };
                 yeniSiparisDetay.AraToplam = yeniSiparisDetay.Adet * yeniSiparisDetay.Fiyat;
 
                 _siparisRepository.Add(yeniSiparis);

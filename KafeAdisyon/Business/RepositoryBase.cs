@@ -33,7 +33,7 @@ namespace KafeAdisyon.Business
             IQueryable<T> query = Table;
             foreach (var include in includes)
             {
-                query = Table.Include(include);
+                query = query.Include(include);
             }
             return predicate == null ? Table : Table.Where(predicate).AsQueryable();
         }
