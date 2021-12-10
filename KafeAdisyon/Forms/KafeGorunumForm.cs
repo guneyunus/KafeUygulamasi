@@ -52,7 +52,7 @@ namespace KafeAdisyon.Forms
             Button seciliButton = sender as Button;
 
             _seciliKat = seciliButton.Tag as Kat;
-            List<Masa> masalar = _masaRepository.Get().Where(x=>x.KatId == _seciliKat.Id).ToList();
+            List<Masa> masalar = _masaRepository.Get().Where(x=>x.KatId == _seciliKat.Id).OrderBy(x=>x.Id).ToList();
             flpMasalar.Controls.Clear();
             foreach (Masa masa in masalar)
             {
@@ -98,7 +98,7 @@ namespace KafeAdisyon.Forms
             {
                 _frmSiparis = new SiparisForm();
             }
-            _frmSiparis.MdiParent = this.MdiParent;
+            //_frmSiparis.MdiParent = this.MdiParent;
             _frmSiparis.WindowState = FormWindowState.Maximized;
             _frmSiparis.SeciliMasa = seciliButton.Tag as Masa;
             _frmSiparis.MasaninSiparisleri = _siparisRepository
