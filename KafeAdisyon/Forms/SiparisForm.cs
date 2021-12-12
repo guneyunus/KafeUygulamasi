@@ -59,7 +59,7 @@ namespace KafeAdisyon.Forms
                 flpKategoriler.Controls.Add(btn);
             }
             lstSiparisler.FullRowSelect = true;
-
+            //MasaninSiparisleri = _siparisRepository.GetAll();
             ListeyiDoldur();
         }
 
@@ -70,7 +70,7 @@ namespace KafeAdisyon.Forms
             lstSiparisler.View = View.Details;
             lstSiparisler.Columns.Add("Adet");
             lstSiparisler.Columns.Add("Ürün");
-            lstSiparisler.Columns.Add("Ara Toplam");
+            lstSiparisler.Columns.Add("Fiyat");
             decimal toplam = 0;
             foreach (Siparis item in MasaninSiparisleri)
             {
@@ -78,15 +78,31 @@ namespace KafeAdisyon.Forms
                 if (boolQuery)
                 {
 
-                    var siparis = _siparisRepository.Get(x => x.Id == item.Id);
+                    var siparis = _siparisRepository.Get(x => x.Id == item.Id).ToList();//dbden gerekli siparis kaydına ulaşıldı
+                    //gelen siparişin 0.indeksinde gelen kaydı görücez siparis[0]
+
+                    var deneme = siparis[0];
+
                     var siparisDetayi = _siparisDetayRepository.Get(x => x.SiparisId == item.Id).ToList();
-                    var urun = siparisDetayi.Select(x => x.Urun).ToString();
-                    ListViewItem viewItem = new ListViewItem(siparisDetayi.Select(x => x.Adet).ToString());
-                    viewItem.SubItems.Add(siparisDetayi.Select(x => x.Urun.Ad).ToString());
-                    viewItem.SubItems.Add($"{siparisDetayi.Select(x => x.AraToplam):c2}");
+                    
+                    var urunAdiRep = _urunRepository.Get(x => x.Id == siparisDetayi[0].UrunID).First();
+
+                    var urunAdi = urunAdiRep.Ad;
+
+                    var urunFiyati = urunAdiRep.Fiyat;
+
+                    var urunAdeti = siparisDetayi[0].Adet.ToString();
+
+                    var araToplam = siparisDetayi[0].AraToplam;
+
+                    
+
+                    ListViewItem viewItem = new ListViewItem(urunAdeti);
+                    viewItem.SubItems.Add(urunAdi);
+                    viewItem.SubItems.Add($"{urunFiyati:c2}");
                     lstSiparisler.Items.Add(viewItem);
-                    var aratoplamsal = siparisDetayi.Select(x => x.AraToplam).Sum();
-                    toplam += aratoplamsal;
+                   
+                    toplam += araToplam;
                 }
 
             }
@@ -132,7 +148,10 @@ namespace KafeAdisyon.Forms
 
             foreach (Siparis item in MasaninSiparisleri)
             {
-                foreach (var sipDet in item.SiparisDetaylar)
+
+                List<SiparisDetay> listSiparisMasa = _siparisDetayRepository.GetAll(x => x.SiparisId == item.Id);
+                
+                foreach (var sipDet in listSiparisMasa)
                 {
                     if (sipDet.UrunID == _seciliUrun.Id)
                     {
@@ -140,16 +159,19 @@ namespace KafeAdisyon.Forms
                         varMi = true;
                         break;
                     }
-                }
+                }break;
                 
             }
 
             if (varMi)
             {
-                var SiparisDetay = _siparisDetayRepository.Get().Where(x => x.SiparisId == seciliSiparis.Id).ToList();
-                siparisDetay.Adet++;
-                _siparisDetayRepository.Update(siparisDetay);
-
+                var siparisDetayi = _siparisDetayRepository.Get(x => x.SiparisId == seciliSiparis.Id).First();
+                siparisDetayi.Adet++;
+                siparisDetayi.AraToplam = siparisDetayi.Adet * siparisDetayi.Fiyat;
+                siparisDetayi.UrunID = _seciliUrun.Id;
+                _siparisDetayRepository._dbContext.Update(siparisDetayi);
+                _siparisDetayRepository._dbContext.SaveChanges();
+                
             }
             else
             {
@@ -166,6 +188,7 @@ namespace KafeAdisyon.Forms
                     UrunID = _seciliUrun.Id,
                     Adet = 1,
                     Fiyat = _seciliUrun.Fiyat,
+                    
                 };
                 yeniSiparisDetay.AraToplam = yeniSiparisDetay.Adet * yeniSiparisDetay.Fiyat;
 
@@ -204,6 +227,52 @@ namespace KafeAdisyon.Forms
 
         private void btnKapat_Click(object sender, EventArgs e)
         {
+            var masaninSiparisleri = _masaRepository.Get(x => x.Id == SeciliMasa.Id).First();
+            masaninSiparisleri.Siparisler.Clear();
+            _masaRepository._dbContext.Update(masaninSiparisleri);
+
+            foreach (Siparis item in MasaninSiparisleri)
+            {
+
+                List<SiparisDetay> listSiparisMasa = _siparisDetayRepository.GetAll(x => x.SiparisId == item.Id);
+
+                if (listSiparisMasa.Count > 0)
+                {
+                    foreach (var sipDet in listSiparisMasa)
+                    {
+
+                        _siparisDetayRepository._dbContext.Remove(sipDet);
+                    }
+                }
+
+               
+
+            }
+
+            foreach (Siparis item in MasaninSiparisleri)
+            {
+                
+                _siparisRepository._dbContext.Remove(item);
+
+            }
+
+            _masaRepository._dbContext.SaveChanges();
+            _siparisDetayRepository._dbContext.SaveChanges();
+            _siparisRepository._dbContext.SaveChanges();
+
+
+            //var masaninSiparisleri = _siparisRepository
+            //    .GetAll(x =>
+            //        x.Masa.Id == _frmSiparis.SeciliMasa.Id && x.Masa.DoluMU ==true);
+            //MessageBox.Show($"Masa kapatıldı: {masaninSiparisleri.Sum(x=>x.SiparisDetaylar.Sum(x=>x.Fiyat)):c2} Tutar Tahsil edildi.");
+            //foreach (var siparis in masaninSiparisleri)
+            //{
+            //    siparis.Masa.DoluMU = false;
+            //}
+            //_siparisRepository._dbContext.SaveChanges();
+
+
+
             this.DialogResult = DialogResult.Abort;
             this.Close();
         }

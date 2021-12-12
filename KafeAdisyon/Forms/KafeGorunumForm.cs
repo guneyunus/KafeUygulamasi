@@ -115,19 +115,21 @@ namespace KafeAdisyon.Forms
             DialogResult result = _frmSiparis.ShowDialog();
             if (result == DialogResult.OK)
             {
-                seciliButton.BackColor = seciliKatColor;
+                seciliButton.BackColor = seciliKatColor;//siparis kaydettiyse
             }
-            else if (result == DialogResult.Abort)
+            else if (result == DialogResult.Abort)//masayı kapadiysa
             {
-                var masaninSiparisleri = _siparisRepository
-                    .GetAll(x =>
-                        x.Masa.Id == _frmSiparis.SeciliMasa.Id && x.Masa.DoluMU ==true);
-                MessageBox.Show($"Masa kapatıldı: {masaninSiparisleri.Sum(x=>x.SiparisDetaylar.Sum(x=>x.Fiyat)):c2} Tutar Tahsil edildi.");
-                foreach (var siparis in masaninSiparisleri)
-                {
-                    siparis.Masa.DoluMU = false;
-                }
-                _siparisRepository._dbContext.SaveChanges();
+                //var masaninSiparisleri = _siparisRepository
+                //    .GetAll(x =>
+                //        x.Masa.Id == _frmSiparis.SeciliMasa.Id && x.Masa.DoluMU ==true);
+                //MessageBox.Show($"Masa kapatıldı: {masaninSiparisleri.Sum(x=>x.SiparisDetaylar.Sum(x=>x.Fiyat)):c2} Tutar Tahsil edildi.");
+                //foreach (var siparis in masaninSiparisleri)
+                //{
+                //    siparis.Masa.DoluMU = false;
+                //}
+                //_siparisRepository._dbContext.SaveChanges();
+                seciliButton.BackColor = defaultKatColor;
+
             }
             MasaRenklendir();
         }
