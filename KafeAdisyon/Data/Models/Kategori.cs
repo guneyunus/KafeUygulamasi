@@ -20,5 +20,10 @@ namespace KafeAdisyon.Data.Models
         public byte[] Fotograf { get; set; }
 
         public ICollection<Urun> Urunler { get; set; } = new HashSet<Urun>();
+
+        public override string ToString()
+        {
+            return $"{Ad}";
+        }
     }
 }

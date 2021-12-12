@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KafeAdisyon.Migrations
 {
     [DbContext(typeof(CafeContext))]
-    [Migration("20211209110939_CreateInitialDb")]
-    partial class CreateInitialDb
+    [Migration("20211210073851_InitialCreateDbForOgi")]
+    partial class InitialCreateDbForOgi
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
