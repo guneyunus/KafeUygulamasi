@@ -173,5 +173,17 @@ namespace KafeAdisyon.Forms
                 x.Masa.Id == SeciliMasa.Id && x.Masa.DoluMU == true);
             ListeyiDoldur();
         }
+
+        private void btnKaydet_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+
+        private void btnKapat_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Abort;
+            this.Close();
+        }
     }
 }

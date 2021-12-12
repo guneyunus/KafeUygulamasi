@@ -29,6 +29,7 @@ namespace KafeAdisyon.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(KatAyarForm));
             this.txtKatAdi = new System.Windows.Forms.TextBox();
             this.txtSira = new System.Windows.Forms.TextBox();
             this.txtKod = new System.Windows.Forms.TextBox();
@@ -72,41 +73,46 @@ namespace KafeAdisyon.Forms
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 24);
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label1.Location = new System.Drawing.Point(5, 31);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(58, 20);
+            this.label1.Size = new System.Drawing.Size(65, 20);
             this.label1.TabIndex = 4;
-            this.label1.Text = "Kat Adı";
+            this.label1.Text = "Kat Adı:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 60);
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label2.Location = new System.Drawing.Point(7, 64);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(34, 20);
+            this.label2.Size = new System.Drawing.Size(39, 20);
             this.label2.TabIndex = 5;
-            this.label2.Text = "Sıra";
+            this.label2.Text = "Sıra:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 93);
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label3.Location = new System.Drawing.Point(5, 97);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(36, 20);
+            this.label3.Size = new System.Drawing.Size(41, 20);
             this.label3.TabIndex = 6;
-            this.label3.Text = "Kod";
+            this.label3.Text = "Kod:";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(15, 123);
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label4.Location = new System.Drawing.Point(5, 130);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(41, 20);
+            this.label4.Size = new System.Drawing.Size(47, 20);
             this.label4.TabIndex = 7;
-            this.label4.Text = "Adet";
+            this.label4.Text = "Adet:";
             // 
             // lstKatlar
             // 
+            this.lstKatlar.BackColor = System.Drawing.Color.MistyRose;
             this.lstKatlar.FormattingEnabled = true;
             this.lstKatlar.ItemHeight = 20;
             this.lstKatlar.Location = new System.Drawing.Point(304, 24);
@@ -116,18 +122,24 @@ namespace KafeAdisyon.Forms
             // 
             // btnEkle
             // 
-            this.btnEkle.Location = new System.Drawing.Point(12, 173);
+            this.btnEkle.BackColor = System.Drawing.Color.Salmon;
+            this.btnEkle.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnEkle.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnEkle.Location = new System.Drawing.Point(12, 224);
             this.btnEkle.Name = "btnEkle";
-            this.btnEkle.Size = new System.Drawing.Size(285, 255);
+            this.btnEkle.Size = new System.Drawing.Size(285, 204);
             this.btnEkle.TabIndex = 9;
             this.btnEkle.Text = "Ekle";
-            this.btnEkle.UseVisualStyleBackColor = true;
+            this.btnEkle.UseVisualStyleBackColor = false;
             this.btnEkle.Click += new System.EventHandler(this.btnEkle_Click);
             // 
             // KatAyarForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Snow;
+            this.BackgroundImage = global::KafeAdisyon.Properties.Resources.teahub_io_food_wallpaper_62902;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.btnEkle);
             this.Controls.Add(this.lstKatlar);
@@ -139,6 +151,7 @@ namespace KafeAdisyon.Forms
             this.Controls.Add(this.txtKod);
             this.Controls.Add(this.txtSira);
             this.Controls.Add(this.txtKatAdi);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "KatAyarForm";
             this.Text = "KatAyarForm";
             this.Load += new System.EventHandler(this.KatAyarForm_Load);

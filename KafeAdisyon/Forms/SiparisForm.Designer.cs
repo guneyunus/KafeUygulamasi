@@ -29,6 +29,7 @@ namespace KafeAdisyon.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SiparisForm));
             this.flpKategoriler = new System.Windows.Forms.FlowLayoutPanel();
             this.flpUrunler = new System.Windows.Forms.FlowLayoutPanel();
             this.lblToplam = new System.Windows.Forms.Label();
@@ -46,6 +47,8 @@ namespace KafeAdisyon.Forms
             // 
             // flpUrunler
             // 
+            this.flpUrunler.BackgroundImage = global::KafeAdisyon.Properties.Resources._1306126;
+            this.flpUrunler.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.flpUrunler.Location = new System.Drawing.Point(12, 238);
             this.flpUrunler.Name = "flpUrunler";
             this.flpUrunler.Size = new System.Drawing.Size(1025, 497);
@@ -54,7 +57,7 @@ namespace KafeAdisyon.Forms
             // lblToplam
             // 
             this.lblToplam.AutoSize = true;
-            this.lblToplam.Location = new System.Drawing.Point(1189, 554);
+            this.lblToplam.Location = new System.Drawing.Point(1189, 561);
             this.lblToplam.Name = "lblToplam";
             this.lblToplam.Size = new System.Drawing.Size(50, 20);
             this.lblToplam.TabIndex = 3;
@@ -62,22 +65,28 @@ namespace KafeAdisyon.Forms
             // 
             // btnKaydet
             // 
-            this.btnKaydet.Location = new System.Drawing.Point(1043, 591);
+            this.btnKaydet.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btnKaydet.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnKaydet.Location = new System.Drawing.Point(1043, 609);
             this.btnKaydet.Name = "btnKaydet";
             this.btnKaydet.Size = new System.Drawing.Size(338, 60);
             this.btnKaydet.TabIndex = 4;
             this.btnKaydet.Text = "Kaydet";
-            this.btnKaydet.UseVisualStyleBackColor = true;
+            this.btnKaydet.UseVisualStyleBackColor = false;
+            this.btnKaydet.Click += new System.EventHandler(this.btnKaydet_Click);
             // 
             // btnKapat
             // 
-            this.btnKapat.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.btnKapat.Location = new System.Drawing.Point(1043, 657);
+            this.btnKapat.BackColor = System.Drawing.Color.Red;
+            this.btnKapat.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnKapat.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnKapat.Location = new System.Drawing.Point(1043, 675);
             this.btnKapat.Name = "btnKapat";
             this.btnKapat.Size = new System.Drawing.Size(338, 60);
             this.btnKapat.TabIndex = 5;
             this.btnKapat.Text = "Kapat";
-            this.btnKapat.UseVisualStyleBackColor = true;
+            this.btnKapat.UseVisualStyleBackColor = false;
+            this.btnKapat.Click += new System.EventHandler(this.btnKapat_Click);
             // 
             // lstSiparisler
             // 
@@ -99,6 +108,7 @@ namespace KafeAdisyon.Forms
             this.Controls.Add(this.lblToplam);
             this.Controls.Add(this.flpUrunler);
             this.Controls.Add(this.flpKategoriler);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SiparisForm";
             this.Text = "SiparisForm";
             this.Load += new System.EventHandler(this.SiparisForm_Load);

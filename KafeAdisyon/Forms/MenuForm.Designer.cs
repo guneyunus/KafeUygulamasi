@@ -54,38 +54,41 @@ namespace KafeAdisyon.Forms
             // 
             // txtUrunAdi
             // 
-            this.txtUrunAdi.Location = new System.Drawing.Point(526, 42);
+            this.txtUrunAdi.Location = new System.Drawing.Point(545, 62);
             this.txtUrunAdi.Name = "txtUrunAdi";
-            this.txtUrunAdi.Size = new System.Drawing.Size(163, 27);
+            this.txtUrunAdi.Size = new System.Drawing.Size(164, 27);
             this.txtUrunAdi.TabIndex = 1;
             // 
             // pbKategori
             // 
-            this.pbKategori.Location = new System.Drawing.Point(106, 91);
+            this.pbKategori.Location = new System.Drawing.Point(34, 90);
             this.pbKategori.Name = "pbKategori";
-            this.pbKategori.Size = new System.Drawing.Size(125, 145);
+            this.pbKategori.Size = new System.Drawing.Size(197, 169);
             this.pbKategori.TabIndex = 2;
             this.pbKategori.TabStop = false;
             this.pbKategori.Click += new System.EventHandler(this.pbKategori_Click);
             // 
             // btnKategoriKaydet
             // 
-            this.btnKategoriKaydet.Location = new System.Drawing.Point(106, 265);
+            this.btnKategoriKaydet.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.btnKategoriKaydet.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnKategoriKaydet.Location = new System.Drawing.Point(34, 265);
             this.btnKategoriKaydet.Name = "btnKategoriKaydet";
-            this.btnKategoriKaydet.Size = new System.Drawing.Size(125, 79);
+            this.btnKategoriKaydet.Size = new System.Drawing.Size(197, 116);
             this.btnKategoriKaydet.TabIndex = 3;
             this.btnKategoriKaydet.Text = "Kategori Kaydet";
-            this.btnKategoriKaydet.UseVisualStyleBackColor = true;
+            this.btnKategoriKaydet.UseVisualStyleBackColor = false;
             this.btnKategoriKaydet.Click += new System.EventHandler(this.btnKategoriKaydet_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(34, 60);
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label1.Location = new System.Drawing.Point(21, 57);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(66, 20);
+            this.label1.Size = new System.Drawing.Size(84, 23);
             this.label1.TabIndex = 4;
-            this.label1.Text = "Kategori";
+            this.label1.Text = "Kategori:";
             // 
             // lstKategori
             // 
@@ -100,53 +103,57 @@ namespace KafeAdisyon.Forms
             // nFiyat
             // 
             this.nFiyat.DecimalPlaces = 2;
-            this.nFiyat.Location = new System.Drawing.Point(526, 91);
+            this.nFiyat.Location = new System.Drawing.Point(545, 93);
             this.nFiyat.Name = "nFiyat";
             this.nFiyat.Size = new System.Drawing.Size(163, 27);
             this.nFiyat.TabIndex = 6;
             // 
             // pbUrun
             // 
-            this.pbUrun.Location = new System.Drawing.Point(526, 133);
+            this.pbUrun.Location = new System.Drawing.Point(499, 126);
             this.pbUrun.Name = "pbUrun";
-            this.pbUrun.Size = new System.Drawing.Size(163, 153);
+            this.pbUrun.Size = new System.Drawing.Size(210, 133);
             this.pbUrun.TabIndex = 7;
             this.pbUrun.TabStop = false;
             this.pbUrun.Click += new System.EventHandler(this.pbUrun_Click);
             // 
             // btnUrunKaydet
             // 
-            this.btnUrunKaydet.Location = new System.Drawing.Point(526, 292);
+            this.btnUrunKaydet.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.btnUrunKaydet.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnUrunKaydet.Location = new System.Drawing.Point(499, 265);
             this.btnUrunKaydet.Name = "btnUrunKaydet";
-            this.btnUrunKaydet.Size = new System.Drawing.Size(163, 83);
+            this.btnUrunKaydet.Size = new System.Drawing.Size(209, 121);
             this.btnUrunKaydet.TabIndex = 8;
-            this.btnUrunKaydet.Text = "Urun Kaydet";
-            this.btnUrunKaydet.UseVisualStyleBackColor = true;
+            this.btnUrunKaydet.Text = "Ürün Kaydet";
+            this.btnUrunKaydet.UseVisualStyleBackColor = false;
             this.btnUrunKaydet.Click += new System.EventHandler(this.btnUrunKaydet_Click);
             // 
             // lstUrunler
             // 
             this.lstUrunler.FormattingEnabled = true;
             this.lstUrunler.ItemHeight = 20;
-            this.lstUrunler.Location = new System.Drawing.Point(695, 42);
+            this.lstUrunler.Location = new System.Drawing.Point(714, 62);
             this.lstUrunler.Name = "lstUrunler";
-            this.lstUrunler.Size = new System.Drawing.Size(205, 344);
+            this.lstUrunler.Size = new System.Drawing.Size(205, 324);
             this.lstUrunler.TabIndex = 9;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(470, 49);
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label2.Location = new System.Drawing.Point(490, 63);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(40, 20);
+            this.label2.Size = new System.Drawing.Size(54, 23);
             this.label2.TabIndex = 10;
-            this.label2.Text = "Ürün";
+            this.label2.Text = "Ürün:";
             // 
             // MenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1024, 450);
+            this.BackColor = System.Drawing.Color.LemonChiffon;
+            this.ClientSize = new System.Drawing.Size(974, 450);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lstUrunler);
             this.Controls.Add(this.btnUrunKaydet);

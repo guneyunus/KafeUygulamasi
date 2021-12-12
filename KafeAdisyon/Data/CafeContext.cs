@@ -20,7 +20,7 @@ namespace KafeAdisyon.Data
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseSqlServer(@"
-Data Source=DESKTOP-30MHEAF\SQLEXPRESS;Initial Catalog=Kafe5DB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;");
+Data Source=LAPTOP-3N546DI4;User Id=sa; Password=daghan.3723;Initial Catalog=Kafe5DB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;");
             }
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

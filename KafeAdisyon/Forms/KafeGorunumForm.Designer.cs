@@ -29,6 +29,7 @@ namespace KafeAdisyon.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(KafeGorunumForm));
             this.flpKatlar = new System.Windows.Forms.FlowLayoutPanel();
             this.flpMasalar = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
@@ -42,6 +43,8 @@ namespace KafeAdisyon.Forms
             // 
             // flpMasalar
             // 
+            this.flpMasalar.BackgroundImage = global::KafeAdisyon.Properties.Resources.GirisEkranArkaplan;
+            this.flpMasalar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.flpMasalar.Location = new System.Drawing.Point(13, 183);
             this.flpMasalar.Name = "flpMasalar";
             this.flpMasalar.Size = new System.Drawing.Size(1329, 553);
@@ -51,9 +54,12 @@ namespace KafeAdisyon.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.LightYellow;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1354, 748);
             this.Controls.Add(this.flpMasalar);
             this.Controls.Add(this.flpKatlar);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "KafeGorunumForm";
             this.Text = "KafeGorunumForm";
             this.Load += new System.EventHandler(this.KafeGorunumForm_Load);
