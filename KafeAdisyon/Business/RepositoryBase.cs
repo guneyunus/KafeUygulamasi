@@ -41,7 +41,12 @@ namespace KafeAdisyon.Business
         {
             return predicate == null ? Table.ToList() : Table.Where(predicate).ToList();
         }
+        public virtual void Add(T entity)
+        {
+            Table.Add(entity);
+            this.Save();
 
+        }
         public virtual void Add(T entity, bool isSaveLater = false)
         {
             Table.Add(entity);

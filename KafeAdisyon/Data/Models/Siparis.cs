@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ namespace KafeAdisyon.Data.Models
     {
         public int Id { get; set; }
 
+        public int GetSiparisId { get; set; }
         public DateTime SiparisTarihi { get; set; } = DateTime.Now;
         [Column(TypeName = "smalldatetime")]
         public DateTime? UlasmaTarihi { get; set; }

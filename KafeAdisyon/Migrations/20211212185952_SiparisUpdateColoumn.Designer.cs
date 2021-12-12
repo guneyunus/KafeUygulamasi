@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KafeAdisyon.Migrations
 {
     [DbContext(typeof(CafeContext))]
-    [Migration("20211212161707_cafe5Db")]
-    partial class cafe5Db
+    [Migration("20211212185952_SiparisUpdateColoumn")]
+    partial class SiparisUpdateColoumn
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -183,6 +183,9 @@ namespace KafeAdisyon.Migrations
 
                     b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("GetSiparisId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");

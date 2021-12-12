@@ -12,9 +12,11 @@ namespace KafeAdisyon.Data.Models
     public class SiparisDetay:BaseEntity,IKey<int>
     {
         public int Id { get; set; }
+
         [ForeignKey(nameof(UrunID))]
         public Urun Urun { get; set; } 
         public int UrunID { get; set; }
+
         [ForeignKey(nameof(SiparisId))]
         public Siparis  Siparis { get; set; }
         public int SiparisId { get; set; }

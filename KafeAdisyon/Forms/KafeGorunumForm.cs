@@ -79,13 +79,21 @@ namespace KafeAdisyon.Forms
 
         private void MasaRenklendir()
         {
-            var mevcutSiparisler = _siparisRepository.GetAll(x => x.Masa.DoluMU == false);
+            var mevcutSiparisler = _siparisRepository.Get().ToList();
             foreach (Button button in flpMasalar.Controls)
             {
+                var btn = button.Tag as Masa;
                 button.BackColor = defaultKatColor;
-                if (mevcutSiparisler.Any(x => x.Masa.Ad.Equals(button.Text)))
+                //if (mevcutSiparisler.Any(x => x.Masa.Ad.Equals(button.Text)))
+                //{
+                //    button.BackColor = seciliKatColor;
+                //}
+                foreach (var sip in mevcutSiparisler)
                 {
-                    button.BackColor = seciliKatColor;
+                    if (sip.MasaId ==btn.Id)
+                    {
+                        button.BackColor = seciliKatColor;
+                    }
                 }
             }
         }
@@ -102,8 +110,7 @@ namespace KafeAdisyon.Forms
             _frmSiparis.WindowState = FormWindowState.Maximized;
             _frmSiparis.SeciliMasa = seciliButton.Tag as Masa;
             _frmSiparis.MasaninSiparisleri = _siparisRepository
-                .GetAll(x =>
-                    x.Masa.Id == _frmSiparis.SeciliMasa.Id && x.Masa.DoluMU == true);
+                .GetAll(x =>x.MasaId == _frmSiparis.SeciliMasa.Id);
             
             DialogResult result = _frmSiparis.ShowDialog();
             if (result == DialogResult.OK)

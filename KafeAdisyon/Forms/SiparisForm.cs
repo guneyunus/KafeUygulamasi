@@ -35,8 +35,8 @@ namespace KafeAdisyon.Forms
 
         private void SiparisForm_Load(object sender, EventArgs e)
         {
-            _kategoriRepository = new KategoriRepository() { };
-            _siparisRepository = new SiparisRepository() { };
+            _kategoriRepository = new KategoriRepository();
+            _siparisRepository = new SiparisRepository();
             _siparisDetayRepository = new SiparisDetayRepository();
             _masaRepository = new MasaRepository();
             _urunRepository = new UrunRepository();
@@ -132,17 +132,21 @@ namespace KafeAdisyon.Forms
 
             foreach (Siparis item in MasaninSiparisleri)
             {
-                if (item.Id == _seciliUrun.Id)
+                foreach (var sipDet in item.SiparisDetaylar)
                 {
-                    seciliSiparis = item;
-                    varMi = true;
-                    break;
+                    if (sipDet.UrunID == _seciliUrun.Id)
+                    {
+                        seciliSiparis = item;
+                        varMi = true;
+                        break;
+                    }
                 }
+                
             }
 
             if (varMi)
             {
-                var SiparisDetay = _siparisDetayRepository.GetAll().Where(x => x.SiparisId == seciliSiparis.Id).ToList();
+                var SiparisDetay = _siparisDetayRepository.Get().Where(x => x.SiparisId == seciliSiparis.Id).ToList();
                 siparisDetay.Adet++;
                 _siparisDetayRepository.Update(siparisDetay);
 
@@ -152,25 +156,43 @@ namespace KafeAdisyon.Forms
                 Siparis yeniSiparis = new Siparis()
                 {
                     SiparisTarihi = DateTime.Now,
-                    Masa = SeciliMasa,
-                    MasaId = SeciliMasa.Id
+                    MasaId = SeciliMasa.Id,
+                    GetSiparisId = new Random().Next(1,999)
                 };
+
+
                 SiparisDetay yeniSiparisDetay = new SiparisDetay()
                 {
                     UrunID = _seciliUrun.Id,
-                    SiparisId = yeniSiparis.Id,
                     Adet = 1,
                     Fiyat = _seciliUrun.Fiyat,
                 };
                 yeniSiparisDetay.AraToplam = yeniSiparisDetay.Adet * yeniSiparisDetay.Fiyat;
 
-                _siparisRepository.Add(yeniSiparis);
-                _siparisDetayRepository.Add(yeniSiparisDetay);
+                
 
+                //_siparisRepository.Add(yeniSiparis);//fixed
+                _siparisRepository._dbContext.Add(yeniSiparis);
+                _siparisRepository._dbContext.SaveChanges();//SiparisID olusucak
+               
+
+                var YeniSiparisDetayId = _siparisRepository.Get(x => x.GetSiparisId == yeniSiparis.GetSiparisId).ToList();
+                yeniSiparisDetay.SiparisId = YeniSiparisDetayId[0].Id;//ıd buldurucu
+
+
+                yeniSiparis.SiparisDetaylar.Add(yeniSiparisDetay);
+                _siparisRepository._dbContext.Update(yeniSiparis);
+
+
+                _siparisDetayRepository.Add(yeniSiparisDetay);
+                
+                
+                _masaRepository._dbContext.Update(SeciliMasa);
+                _masaRepository._dbContext.SaveChanges();
             }
 
-            MasaninSiparisleri = _siparisRepository.GetAll(x =>
-                x.Masa.Id == SeciliMasa.Id && x.Masa.DoluMU == true);
+            
+            MasaninSiparisleri = _siparisRepository.Get(x => x.MasaId == SeciliMasa.Id).ToList();
             ListeyiDoldur();
         }
 
