@@ -11,8 +11,7 @@ using System.Windows.Forms;
 using KafeAdisyon.Business;
 using KafeAdisyon.Data.Models;
 using Microsoft.EntityFrameworkCore;
-//using iTextSharp.text;
-//using iTextSharp.text.pdf;
+
 
 namespace KafeAdisyon.Forms
 {
@@ -61,7 +60,9 @@ namespace KafeAdisyon.Forms
                 flpKategoriler.Controls.Add(btn);
             }
             lstSiparisler.FullRowSelect = true;
-            //MasaninSiparisleri = _siparisRepository.GetAll();
+
+
+            MasaninSiparisleri = _siparisRepository.Get(x => x.MasaId == SeciliMasa.Id).ToList();
             ListeyiDoldur();
         }
 
@@ -76,10 +77,12 @@ namespace KafeAdisyon.Forms
             decimal toplam = 0;
             foreach (Siparis item in MasaninSiparisleri)
             {
+               
                 var boolQuery = _siparisDetayRepository.Get(x => x.SiparisId == item.Id).Any();
+               
                 if (boolQuery)
                 {
-
+                    
                     var siparis = _siparisRepository.Get(x => x.Id == item.Id).ToList();//dbden gerekli siparis kaydına ulaşıldı
                     //gelen siparişin 0.indeksinde gelen kaydı görücez siparis[0]
 
@@ -151,7 +154,10 @@ namespace KafeAdisyon.Forms
             foreach (Siparis item in MasaninSiparisleri)
             {
 
-                List<SiparisDetay> listSiparisMasa = _siparisDetayRepository.GetAll(x => x.SiparisId == item.Id);
+                //List<SiparisDetay> listSiparisMasa = _siparisDetayRepository.Get(x => x.SiparisId == item.Id).ToList();
+                List<SiparisDetay> listSiparisMasa = _siparisDetayRepository.GetAll(x=>x.SiparisId == item.Id);
+                //group by eklenicek
+
 
                 foreach (var sipDet in listSiparisMasa)
                 {
@@ -197,21 +203,22 @@ namespace KafeAdisyon.Forms
 
 
 
-                //_siparisRepository.Add(yeniSiparis);//fixed
+                yeniSiparis.SiparisDetaylar.Add(yeniSiparisDetay);
                 _siparisRepository._dbContext.Add(yeniSiparis);
+                
                 _siparisRepository._dbContext.SaveChanges();//SiparisID olusucak
-
+                
 
                 var YeniSiparisDetayId = _siparisRepository.Get(x => x.GetSiparisId == yeniSiparis.GetSiparisId).ToList();
                 yeniSiparisDetay.SiparisId = YeniSiparisDetayId[0].Id;//ıd buldurucu
 
 
-                yeniSiparis.SiparisDetaylar.Add(yeniSiparisDetay);
+                //yeniSiparis.SiparisDetaylar.Add(yeniSiparisDetay);
                 _siparisRepository._dbContext.Update(yeniSiparis);
+                _siparisDetayRepository._dbContext.Update(yeniSiparisDetay);
 
-
-                _siparisDetayRepository.Add(yeniSiparisDetay);
-
+                _siparisDetayRepository._dbContext.SaveChanges();
+                _siparisRepository._dbContext.SaveChanges();
 
                 _masaRepository._dbContext.Update(SeciliMasa);
                 _masaRepository._dbContext.SaveChanges();
@@ -234,26 +241,24 @@ namespace KafeAdisyon.Forms
             printDialog.Document = printDocument1;
             printDialog.UseEXDialog = true;
             printDocument1.Print();
-            //Close();
-
+            
 
 
             var masaninSiparisleri = _masaRepository.Get(x => x.Id == SeciliMasa.Id).First();
-            masaninSiparisleri.Siparisler.Clear();
-            _masaRepository._dbContext.Update(masaninSiparisleri);
+            SeciliMasa.DoluMU = false;
 
-
-            foreach (Siparis item in MasaninSiparisleri)
+            foreach (var siparis in MasaninSiparisleri)
             {
-                var SiparisSilinecek = _siparisRepository.Get(x => x.Id == item.Id).ToList();
-
-                _siparisRepository.Remove(SiparisSilinecek[0]);
+                var sipRepo = _siparisRepository.Get(x => x.MasaId == siparis.MasaId).First();
+                
+                _siparisRepository._dbContext.Remove(sipRepo);
+                _siparisRepository._dbContext.SaveChanges();
 
             }
 
+            masaninSiparisleri.Siparisler.Clear();
+            _masaRepository._dbContext.Update(masaninSiparisleri);
             _masaRepository._dbContext.SaveChanges();
-            _siparisDetayRepository._dbContext.SaveChanges();
-            _siparisRepository._dbContext.SaveChanges();
 
             this.DialogResult = DialogResult.Abort;
             this.Close();
@@ -304,17 +309,7 @@ namespace KafeAdisyon.Forms
                 }
             }
            e.Graphics.DrawString($"{ToplamTutar:c2}",font,firca,550,y+40);
-            //while (i <= dgvOrders.Rows.Count - 1)
-            //{
-            //    e.Graphics.DrawString(dgvOrders.Rows[i].Cells[2].Value.ToString(), font, firca, 280, y);
-            //    e.Graphics.DrawString($"{dgvOrders.Rows[i].Cells[1].Value}".ToString(), font, firca, 420, y);
-            //    e.Graphics.DrawString($"{dgvOrders.Rows[i].Cells[4].Value:c2}", font, firca, 550, y);
-            //    e.Graphics.DrawString($"{ dgvOrders.Rows[i].Cells[5].Value:c2}".ToString(), font, firca, 680, y);
-            //    y = y + 40;
-            //    i = i + 1;
-            //}
-            //e.Graphics.DrawString($"Toplam Tutar: {dgvOrders.Rows.Cast<DataGridViewRow>().Sum(row => Convert.ToDecimal(row.Cells[5].Value)):c2}".ToString(), font, firca, 550, y + 40);
-
+           
 
         }
     }
