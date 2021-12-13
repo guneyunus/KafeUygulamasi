@@ -36,6 +36,7 @@ namespace KafeAdisyon.Forms
             this.btnKaydet = new System.Windows.Forms.Button();
             this.btnKapat = new System.Windows.Forms.Button();
             this.lstSiparisler = new System.Windows.Forms.ListView();
+            this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.SuspendLayout();
             // 
             // flpKategoriler
@@ -97,6 +98,10 @@ namespace KafeAdisyon.Forms
             this.lstSiparisler.TabIndex = 6;
             this.lstSiparisler.UseCompatibleStateImageBehavior = false;
             // 
+            // printDocument1
+            // 
+            this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
+            // 
             // SiparisForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -125,5 +130,6 @@ namespace KafeAdisyon.Forms
         private System.Windows.Forms.Button btnKaydet;
         private System.Windows.Forms.Button btnKapat;
         private System.Windows.Forms.ListView lstSiparisler;
+        private System.Drawing.Printing.PrintDocument printDocument1;
     }
 }

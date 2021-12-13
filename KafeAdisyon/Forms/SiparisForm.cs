@@ -11,6 +11,8 @@ using System.Windows.Forms;
 using KafeAdisyon.Business;
 using KafeAdisyon.Data.Models;
 using Microsoft.EntityFrameworkCore;
+//using iTextSharp.text;
+//using iTextSharp.text.pdf;
 
 namespace KafeAdisyon.Forms
 {
@@ -40,8 +42,8 @@ namespace KafeAdisyon.Forms
             _siparisDetayRepository = new SiparisDetayRepository();
             _masaRepository = new MasaRepository();
             _urunRepository = new UrunRepository();
-            var kategoriler = _kategoriRepository.Get(new[]{"Urunler"}).ToList();
-            
+            var kategoriler = _kategoriRepository.Get(new[] { "Urunler" }).ToList();
+
             flpKategoriler.Controls.Clear();
             foreach (Kategori kategori in kategoriler)
             {
@@ -84,7 +86,7 @@ namespace KafeAdisyon.Forms
                     var deneme = siparis[0];
 
                     var siparisDetayi = _siparisDetayRepository.Get(x => x.SiparisId == item.Id).ToList();
-                    
+
                     var urunAdiRep = _urunRepository.Get(x => x.Id == siparisDetayi[0].UrunID).First();
 
                     var urunAdi = urunAdiRep.Ad;
@@ -95,13 +97,13 @@ namespace KafeAdisyon.Forms
 
                     var araToplam = siparisDetayi[0].AraToplam;
 
-                    
+
 
                     ListViewItem viewItem = new ListViewItem(urunAdeti);
                     viewItem.SubItems.Add(urunAdi);
                     viewItem.SubItems.Add($"{urunFiyati:c2}");
                     lstSiparisler.Items.Add(viewItem);
-                   
+
                     toplam += araToplam;
                 }
 
@@ -150,7 +152,7 @@ namespace KafeAdisyon.Forms
             {
 
                 List<SiparisDetay> listSiparisMasa = _siparisDetayRepository.GetAll(x => x.SiparisId == item.Id);
-                
+
                 foreach (var sipDet in listSiparisMasa)
                 {
                     if (sipDet.UrunID == _seciliUrun.Id)
@@ -159,8 +161,9 @@ namespace KafeAdisyon.Forms
                         varMi = true;
                         break;
                     }
-                }break;
-                
+                }
+                break;
+
             }
 
             if (varMi)
@@ -171,7 +174,7 @@ namespace KafeAdisyon.Forms
                 siparisDetayi.UrunID = _seciliUrun.Id;
                 _siparisDetayRepository._dbContext.Update(siparisDetayi);
                 _siparisDetayRepository._dbContext.SaveChanges();
-                
+
             }
             else
             {
@@ -179,7 +182,7 @@ namespace KafeAdisyon.Forms
                 {
                     SiparisTarihi = DateTime.Now,
                     MasaId = SeciliMasa.Id,
-                    GetSiparisId = new Random().Next(1,999)
+                    GetSiparisId = new Random().Next(1, 999)
                 };
 
 
@@ -188,16 +191,16 @@ namespace KafeAdisyon.Forms
                     UrunID = _seciliUrun.Id,
                     Adet = 1,
                     Fiyat = _seciliUrun.Fiyat,
-                    
+
                 };
                 yeniSiparisDetay.AraToplam = yeniSiparisDetay.Adet * yeniSiparisDetay.Fiyat;
 
-                
+
 
                 //_siparisRepository.Add(yeniSiparis);//fixed
                 _siparisRepository._dbContext.Add(yeniSiparis);
                 _siparisRepository._dbContext.SaveChanges();//SiparisID olusucak
-               
+
 
                 var YeniSiparisDetayId = _siparisRepository.Get(x => x.GetSiparisId == yeniSiparis.GetSiparisId).ToList();
                 yeniSiparisDetay.SiparisId = YeniSiparisDetayId[0].Id;//ıd buldurucu
@@ -208,13 +211,13 @@ namespace KafeAdisyon.Forms
 
 
                 _siparisDetayRepository.Add(yeniSiparisDetay);
-                
-                
+
+
                 _masaRepository._dbContext.Update(SeciliMasa);
                 _masaRepository._dbContext.SaveChanges();
             }
 
-            
+
             MasaninSiparisleri = _siparisRepository.Get(x => x.MasaId == SeciliMasa.Id).ToList();
             ListeyiDoldur();
         }
@@ -227,32 +230,24 @@ namespace KafeAdisyon.Forms
 
         private void btnKapat_Click(object sender, EventArgs e)
         {
+            PrintDialog printDialog = new PrintDialog();
+            printDialog.Document = printDocument1;
+            printDialog.UseEXDialog = true;
+            printDocument1.Print();
+            //Close();
+
+
+
             var masaninSiparisleri = _masaRepository.Get(x => x.Id == SeciliMasa.Id).First();
             masaninSiparisleri.Siparisler.Clear();
             _masaRepository._dbContext.Update(masaninSiparisleri);
 
-            foreach (Siparis item in MasaninSiparisleri)
-            {
-
-                List<SiparisDetay> listSiparisMasa = _siparisDetayRepository.GetAll(x => x.SiparisId == item.Id);
-
-                if (listSiparisMasa.Count > 0)
-                {
-                    foreach (var sipDet in listSiparisMasa)
-                    {
-
-                        _siparisDetayRepository._dbContext.Remove(sipDet);
-                    }
-                }
-
-               
-
-            }
 
             foreach (Siparis item in MasaninSiparisleri)
             {
-                
-                _siparisRepository._dbContext.Remove(item);
+                var SiparisSilinecek = _siparisRepository.Get(x => x.Id == item.Id).ToList();
+
+                _siparisRepository.Remove(SiparisSilinecek[0]);
 
             }
 
@@ -260,21 +255,67 @@ namespace KafeAdisyon.Forms
             _siparisDetayRepository._dbContext.SaveChanges();
             _siparisRepository._dbContext.SaveChanges();
 
-
-            //var masaninSiparisleri = _siparisRepository
-            //    .GetAll(x =>
-            //        x.Masa.Id == _frmSiparis.SeciliMasa.Id && x.Masa.DoluMU ==true);
-            //MessageBox.Show($"Masa kapatıldı: {masaninSiparisleri.Sum(x=>x.SiparisDetaylar.Sum(x=>x.Fiyat)):c2} Tutar Tahsil edildi.");
-            //foreach (var siparis in masaninSiparisleri)
-            //{
-            //    siparis.Masa.DoluMU = false;
-            //}
-            //_siparisRepository._dbContext.SaveChanges();
-
-
-
             this.DialogResult = DialogResult.Abort;
             this.Close();
+        }
+
+        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            decimal ToplamTutar = 0;
+            Font font = new Font("Arial", 14);
+            SolidBrush firca = new SolidBrush(Color.Black);
+            Pen kalem = new Pen(Color.Black);
+            e.Graphics.DrawString($"{DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")}", font, firca, 50, 25);
+            font = new Font("Arial", 20, FontStyle.Bold);
+            e.Graphics.DrawString($"Satış Raporu", font, firca, 290, 75);
+            e.Graphics.DrawLine(kalem, 50, 70, 780, 70);
+            e.Graphics.DrawLine(kalem, 50, 110, 780, 110);
+            e.Graphics.DrawLine(kalem, 50, 70, 50, 110);
+            e.Graphics.DrawLine(kalem, 780, 70, 780, 110);
+
+            font = new Font("Arial", 14, FontStyle.Bold);
+
+            e.Graphics.DrawString("ÜRÜN ADI", font, firca, 280, 140);
+            e.Graphics.DrawString("ADETİ", font, firca, 420, 140);
+            e.Graphics.DrawString("FİYATI", font, firca, 550, 140);
+            e.Graphics.DrawString("ARA TOPLAM", font, firca, 680, 140);
+
+            int i = 0;
+            int y = 170;
+            font = new Font("Arial", 14);
+            
+            foreach (var siparis in MasaninSiparisleri)
+            {
+                var subItem = _siparisDetayRepository.Get(x => x.SiparisId == siparis.Id).ToList();
+                
+                foreach (var item in subItem)
+                {
+                    
+                    var urun = _siparisDetayRepository.Get(x => x.Id == item.Id).First();
+                    var urunadı = _urunRepository.Get(x => x.Id == item.UrunID).First();
+
+                    e.Graphics.DrawString(urunadı.Ad,font,firca,280,y);
+                    e.Graphics.DrawString(urun.Adet.ToString(),font,firca,420,y);
+                    e.Graphics.DrawString($"{urun.Fiyat:c2}",font,firca,550,y);
+                    e.Graphics.DrawString($"{urun.AraToplam:c2}", font,firca,680,y);
+                    ToplamTutar += urun.AraToplam;
+                    y = y + 40; 
+                    i = i + 1;
+                }
+            }
+           e.Graphics.DrawString($"{ToplamTutar:c2}",font,firca,550,y+40);
+            //while (i <= dgvOrders.Rows.Count - 1)
+            //{
+            //    e.Graphics.DrawString(dgvOrders.Rows[i].Cells[2].Value.ToString(), font, firca, 280, y);
+            //    e.Graphics.DrawString($"{dgvOrders.Rows[i].Cells[1].Value}".ToString(), font, firca, 420, y);
+            //    e.Graphics.DrawString($"{dgvOrders.Rows[i].Cells[4].Value:c2}", font, firca, 550, y);
+            //    e.Graphics.DrawString($"{ dgvOrders.Rows[i].Cells[5].Value:c2}".ToString(), font, firca, 680, y);
+            //    y = y + 40;
+            //    i = i + 1;
+            //}
+            //e.Graphics.DrawString($"Toplam Tutar: {dgvOrders.Rows.Cast<DataGridViewRow>().Sum(row => Convert.ToDecimal(row.Cells[5].Value)):c2}".ToString(), font, firca, 550, y + 40);
+
+
         }
     }
 }
